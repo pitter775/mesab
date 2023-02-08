@@ -1,6 +1,8 @@
 <?php
 
 use App\Jobs\newDisparo;
+use App\Mail\mailDisparo;
+use App\Mail\MesabMail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Artisan;
@@ -17,11 +19,23 @@ Route::get('disparar-email', function (){
 	$user->name = 'pitter web';
 	$user->email = 'pitter775@gmail.com';
 	//return new newDisparo($user);
-	// Mail::send(new newDisparo($user));	
+	Mail::send(new newDisparo($user));	
 	// JobsNewdisparo::dispatch($user)->delay(now()->addSecond('2'));
 	// JobsNewdisparo::dispatch($user)->delay(now()->addSecond('2'));
-	newDisparo::dispatch($user)->delay(now()->addSecond('2'));
+	//newDisparo::dispatch($user)->delay(now()->addSecond('2'));
 });
+
+Route::get('disparar', function (){
+	$user = new stdClass();
+	$user->name = 'pitter web';
+	$user->email = 'pitter775@gmail.com';
+	$user->subject = 'teste';
+	Mail::send(new MesabMail($user));	
+	//Mail::send(new mailDisparo($user));	
+	//return new mailDisparo($user);
+});
+
+
 Auth::routes();
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
@@ -116,6 +130,14 @@ Route::group(['middleware' => 'acesso'], function () {
 	Route::get('/feriados/delete/{id}', 'App\Http\Controllers\FeriadoController@delete');
 	Route::get('/feriados/editar/{id}', 'App\Http\Controllers\FeriadoController@editar');
 	Route::post('/feriados/cadastro', 'App\Http\Controllers\FeriadoController@store');
+
+
+	Route::get('/ferias', 'App\Http\Controllers\FeriasController@index')->name('ferias');
+	Route::get('/ferias/add/{card}', 'App\Http\Controllers\FeriasController@add_card');
+	Route::get('/ferias/delete/{id}', 'App\Http\Controllers\FeriasController@delete');
+	Route::get('/ferias/editar/{id}', 'App\Http\Controllers\FeriasController@editar');
+	Route::post('/ferias/cadastro', 'App\Http\Controllers\FeriasController@store'); 
+
 
 
 

@@ -221,8 +221,19 @@ function converte_em_horas($segundos){
           }
 
         }
-        
-        elseif($value->feriados_tipos_id == 8){
+        elseif($value->feriados_tipos_id == 10){
+          $class = 'dataferiado';
+          echo "{
+                  title: '$value->ftdescricao',
+                   hora: '0',
+            description: '$value->fn_descricao',     
+                  start: '$value->fn_data 11:33:00',
+                    end: '$value->fn_data 11:50:00',
+                        
+            classNames: '$class', 
+                  },";
+         
+        }elseif($value->feriados_tipos_id == 8){
           $class = 'dataferiado';
           echo "{
                   title: 'Emenda de feriado',

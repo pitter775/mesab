@@ -135,14 +135,14 @@
             type: 'category', //produtos
             data: [
                 <?php
-                    foreach($lista_prod as $value){  
-                        if($value->id !== 16 && $value->id !== 14){
-                            $prdescri = mb_strimwidth($value->prdescricao, 0, 10, "...");                   
-                            // echo '"'.$prdescri.'",'; 
-                             echo '{ value:"'.$prdescri.'", name2:"'.$value->prdescricao.'"},'; 
+                    // foreach($lista_prod as $value){  
+                    //     if($value->id !== 16 && $value->id !== 14){
+                    //         $prdescri = mb_strimwidth($value->prdescricao, 0, 10, "...");                   
+                    //         // echo '"'.$prdescri.'",'; 
+                    //          echo '{ value:"'.$prdescri.'", name2:"'.$value->prdescricao.'"},'; 
                             
-                        }                      
-                    }
+                    //     }                      
+                    // }
                     // echo '"Total"'; 
                     echo '{ value:"Total", name2:"Total"},'; 
                 ?>
@@ -201,15 +201,19 @@
                     $cont_at = 0;
 
                     foreach($lista_atividades as $key => $value){
-                        $tipopro = $value['tipoprod'];
-                        $cont_pr = 0;                 
-                        foreach($tipopro as $key2 => $value2){
-                            $valseg = horas_segundos_sem($value2['hs']);
-                            $valcust1 = explode(".", $value2['vl']);
-                            echo '{value:['.$cont_pr.','. $cont_at.','.$valseg.'], atividade:["'.$value['atdescricao'].'"], custo:["'.$valcust1[0].'"], horas:["'.$valseg.'"], produto:["'.$value2['nome'].'"]},';
+                        $valseg = horas_segundos_sem($value2['hs']);
+                        $valcust1 = explode(".", $value2['vl']);
+                        echo '{value:['.$cont_pr.','. $cont_at.','.$valseg.'], atividade:["'.$value['atdescricao'].'"], custo:["'.$valcust1[0].'"], horas:["'.$valseg.'"], produto:["'.$value2['nome'].'"]},';
+                       
+                        // $tipopro = $value['tipoprod'];
+                        // $cont_pr = 0;                 
+                        // foreach($tipopro as $key2 => $value2){
+                        //     $valseg = horas_segundos_sem($value2['hs']);
+                        //     $valcust1 = explode(".", $value2['vl']);
+                        //     echo '{value:['.$cont_pr.','. $cont_at.','.$valseg.'], atividade:["'.$value['atdescricao'].'"], custo:["'.$valcust1[0].'"], horas:["'.$valseg.'"], produto:["'.$value2['nome'].'"]},';
                             
-                            $cont_pr = $cont_pr + 1;                            
-                        }                        
+                        //     $cont_pr = $cont_pr + 1;                            
+                        // }                        
                         $cont_at = $cont_at + 1;                  
                     }                     
                 ?>

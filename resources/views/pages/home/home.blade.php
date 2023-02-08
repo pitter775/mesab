@@ -185,11 +185,11 @@
         <div id="card_horas"></div>
     </div>
     
-    <div class="row">
+    <div class="row" >
         <div class="col-md-12" >
             <div class="card">
                 <div class="card-body" style="height: 800px;">
-                    <div class="row" id="card_pequenos"></div>
+                    <div class="row" id="card_pequenos" style="display: none"></div>
                     <div class="row">
                         <div class="col-md-4" style="padding-top: 20px; height:60px"></div>  
                         <div class="col-md-12 cards_margin anima_geral"  id="card_contratos" style="margin-top: -10px;"></div>
@@ -199,9 +199,9 @@
         </div>
         <div class="col-md-12">
             <div class="row" id="mae" >                              
-                <div class="col-md-12 cards_margin2 anima_geral"  id="card_atividades" ></div>
-                <div class="col-md-7" id="card_alocacaos" @if(Auth::user()->perfil == 0) style="display:none" @endif></div>
-                <div class="col-md-5" id="card_alocacaos_dep" @if(Auth::user()->perfil == 0) style="display:none" @endif></div>
+                <div class="col-md-12 cards_margin2 anima_geral"  id="card_atividades" >atividade</div>
+                
+
                 <!-- <div class="col-md-12 cards_margin2 anima_geral"  id="card_alocacaosDep" ></div> -->
 
 

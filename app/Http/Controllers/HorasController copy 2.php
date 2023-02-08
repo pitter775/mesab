@@ -275,7 +275,19 @@ class HorasController extends Controller
         ->whereIn('periodos.datafim', $dateRange)
         ->get();    
 
-        $soma = $soma + count($permissao1) + count($permissao2);        
+        $dados_ferias1 = DB::table('ferias AS u')
+        ->where([['u.users_id', Auth::user()->id]])
+        ->whereIn('u.datainicio', $dateRange)
+        ->select('*', 'u.id AS id')
+        ->get();
+  
+        $dados_ferias2 = DB::table('ferias AS u')
+        ->where([['u.users_id', Auth::user()->id]])
+        ->whereIn('u.datafim', $dateRange)
+        ->select('*', 'u.id AS id')
+        ->get(); 
+
+        $soma = $soma + count($permissao1) + count($permissao2)+ count($dados_ferias1) + count($dados_ferias2);        
       }   
 
       return $soma;
@@ -660,7 +672,11 @@ class HorasController extends Controller
 
       $dados_lista = array();
 
-      $dados_ferias = array();
+      $dados_ferias = DB::table('ferias AS u')
+      ->join('users', 'users.id', 'u.users_id')
+      ->where([['u.users_id', $user]])
+      ->select('*', 'u.id AS id', 'u.status as status')
+      ->get();
 
       $dados_atestados = array();
 

@@ -837,10 +837,10 @@ class HomeController extends Controller
     public function card_atividades(Request $request)
     {
 
-        $lista_prod = Produto::orderBy('id', 'asc')->get();
+        // $lista_prod = Produto::orderBy('id', 'asc')->get();
 
         // total horas por contrato
-        $colunas = 'atividades.id AS idativi, atividades.atdescricao, produtos.prdescricao, sum( time_to_sec (e.horas)) as total';
+        $colunas = 'atividades.id AS idativi, atividades.atdescricao, sum( time_to_sec (e.horas)) as total';
         $groupBy = 'GROUP BY atividades.atdescricao';
         $orderBy = 'ORDER BY total desc';
         $lista_atividades2 = $this->filtros($request, $colunas, $groupBy, $orderBy);
@@ -852,7 +852,7 @@ class HomeController extends Controller
         $tipo_pess = [];
         foreach ($lista_atividades2 as $value) {
             // total pess por atividade
-            $colunas = 'e.id AS id, e.users_id, e.tarifa, e.horas, atividades.id AS idati, atividades.atdescricao, produtos.id as idprod, produtos.prdescricao';
+            $colunas = 'e.id AS id, e.users_id, e.tarifa, e.horas, atividades.id AS idati, atividades.atdescricao';
             $groupBy = '';
             $orderBy = '';
             $orderBy = '';
@@ -895,52 +895,12 @@ class HomeController extends Controller
                 $tipo_hora = $tipo_hora +  $segundos;
                 $soma_hora = $soma_hora +  $segundos;
                 $tipo_valor = $tipo_valor +  $valor;
-                foreach ($lista_prod as $val) {
-                    if ($val->id == $value2->idprod) {
-                        if ($value2->idprod == 18) {
-                            $prod_18_hs = $prod_18_hs +  $segundos;
-                            $prod_18_vl = $prod_18_vl +  $valor;
-                        }
-                        if ($value2->idprod == 22) {
-                            $prod_22_hs = $prod_22_hs +  $segundos;
-                            $prod_22_vl = $prod_22_vl +  $valor;
-                        }
-                        if ($value2->idprod == 47) {
-                            $prod_47_hs = $prod_47_hs +  $segundos;
-                            $prod_47_vl = $prod_47_vl +  $valor;
-                        }
-                        if ($value2->idprod == 48) {
-                            $prod_48_hs = $prod_48_hs +  $segundos;
-                            $prod_48_vl = $prod_48_vl +  $valor;
-                        }
-                        if ($value2->idprod == 50) {
-                            $prod_50_hs = $prod_50_hs +  $segundos;
-                            $prod_50_vl = $prod_50_vl +  $valor;
-                        }
-                        if ($value2->idprod == 51) {
-                            $prod_51_hs = $prod_51_hs +  $segundos;
-                            $prod_51_vl = $prod_51_vl +  $valor;
-                        }
-                        if ($value2->idprod == 51) {
-                            $prod_52_hs = $prod_52_hs +  $segundos;
-                            $prod_52_vl = $prod_52_vl +  $valor;
-                        }
-                    }
-                }
+   
             }
-            //  $tipo_produto[14] = ['hs'=>$prod_14_hs, 'vl'=>$prod_14_vl];
-            //  $tipo_produto[16] = ['hs'=>$prod_16_hs, 'vl'=>$prod_16_vl];
-            $tipo_produto[18] = ['hs' => $prod_18_hs, 'vl' => $prod_18_vl, 'nome' => 'Órgãos e Concessionárias'];
-            $tipo_produto[22] = ['hs' => $prod_22_hs, 'vl' => $prod_22_vl, 'nome' => 'Projetos'];
-            $tipo_produto[47] = ['hs' => $prod_47_hs, 'vl' => $prod_47_vl, 'nome' => 'Modelos BIM'];
-            $tipo_produto[48] = ['hs' => $prod_48_hs, 'vl' => $prod_48_vl, 'nome' => 'Obra'];
-            $tipo_produto[50] = ['hs' => $prod_50_hs, 'vl' => $prod_50_vl, 'nome' => 'Geral'];
-            $tipo_produto[51] = ['hs' => $prod_51_hs, 'vl' => $prod_51_vl, 'nome' => 'Pacote Técnico'];
-            $tipo_produto[52] = ['hs' => $prod_52_hs, 'vl' => $prod_52_vl, 'nome' => 'Pós-Obra'];
-            $tipo_produto[99] = ['hs' => $soma_hora, 'vl' => $soma_valores, 'nome' => 'Total'];
+
 
             $pess_unicos = array_unique($pess);
-            $lista_atividades[] = ['id' => $value->idativi, 'atdescricao' => $value->atdescricao,  'total' => $value->total, 'custo' => $soma_valores, 'totaluser' => count($pess_unicos), 'tipoprod' => $tipo_produto];
+            $lista_atividades[] = ['id' => $value->idativi, 'atdescricao' => $value->atdescricao,  'total' => $value->total, 'custo' => $soma_valores, 'totaluser' => count($pess_unicos)];
         }
 
         //  dd($lista_atividades);
@@ -966,7 +926,7 @@ class HomeController extends Controller
 
 
 
-        return view('pages.home.card_atividades', compact('lista_atividades', 'total_horas', 'soma_valor', 'lista_prod'));
+        return view('pages.home.card_atividades', compact('lista_atividades', 'total_horas', 'soma_valor'));
     }
     public function card_alocacaosDep(Request $request)
     {

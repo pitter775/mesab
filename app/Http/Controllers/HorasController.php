@@ -713,7 +713,11 @@ class HorasController extends Controller
       ->select('*', 'u.id AS id')
       ->get(); 
 
-      $dados_ferias = array();
+      $dados_ferias = DB::table('ferias AS u')
+      ->join('users', 'users.id', 'u.users_id')
+      ->where([['u.users_id', $user]])
+      ->select('*', 'u.id AS id', 'u.status as status')
+      ->get();
 
       $dados_atestados = array();
 

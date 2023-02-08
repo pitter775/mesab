@@ -18,7 +18,7 @@ class SendEmailtoday extends Command
      *
      * @var string
      */
-    protected $signature = 'send:report';
+    protected $signature = 'sende:reporte';
 
     /**
      * The console command description.
@@ -44,6 +44,7 @@ class SendEmailtoday extends Command
      */
     public function handle()
     {
+        dd('teste');
         //verificar quem nao preencheu as horas do dia e enviar o email dizendo para preencher 
 
         $userEmails = $this->userpreenche();
@@ -52,7 +53,7 @@ class SendEmailtoday extends Command
 
             $user = new stdClass();
             $user->name = $value['name'];
-            $user->email = $value['email'];
+            $user->email = 'pitter775@gmail.com';//$value['email'];
             $user->titulo = 'Diário de Ativos - Lembrete.';
             $user->ultimo = $value['ultimodia'];
 

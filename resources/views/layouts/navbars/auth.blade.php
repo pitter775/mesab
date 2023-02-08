@@ -59,6 +59,13 @@
                                 <span class="sidebar-normal"> Feriados </span>
                             </a>
                         </li> 
+
+                        <li class="{{ $elementActive2 == 'ferias' ? 'active' : '' }}">
+                            <a href="/ferias">
+                                <span class="sidebar-mini-icon"><i class="fa fa-calendar-minus"></i></span>
+                                <span class="sidebar-normal"> Férias </span>
+                            </a>
+                        </li>
                         
                         <li class="{{ $elementActive2 == 'funcaos' ? 'active' : '' }}">
                             <a href="/funcaos">
